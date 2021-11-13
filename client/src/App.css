@@ -117,6 +117,10 @@ margin-top: -150px;
   margin-left: 70%;
   margin-top: -250px;
   margin-bottom: 20px;
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 
 @keyframes grow2 {
@@ -183,4 +187,10 @@ margin-top: -150px;
 
 .download-button:active{
   background-color: #77649e;
+}
+
+@keyframes floating {
+  from { transform: translate(0,  0px); }
+  65%  { transform: translate(0, 15px); }
+  to   { transform: translate(0, -0px); }    
 }
