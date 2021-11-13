@@ -30,7 +30,7 @@ function Results(props) {
         style={{ display: isConfetti ? "block" : "none" }}
         numberOfPieces={100}
         drawShape={(ctx) => {
-          ctx.font = "40px Arial";
+          ctx.font = "30px Arial";
           ctx.fillText("🎉", 0, 0);
         }}
       />
