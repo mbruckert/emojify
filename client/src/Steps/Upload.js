@@ -18,8 +18,8 @@ function Upload(props) {
   const onDrop = useCallback((acceptedFiles) => {
     getBase64(acceptedFiles[0]);
 
-    // props.changeUploaded();
-    // props.changeStep(1);
+    props.changeUploaded();
+    props.changeStep(1);
 
     console.log(acceptedFiles);
   }, 2000);
