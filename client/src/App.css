@@ -1,38 +1,140 @@
 .App {
   text-align: center;
+  background-image: url("./Assets/background.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.logo{
+  width: 400px;
+  margin-top: 100px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.upload-box{
+  width: 80%;
+  top: 80px;
+  margin: auto;
+  display: block;
+  background-color:white;
+  border-radius: 15px;
+  padding: 40px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.upload-image{
+  width: 300px;
+}
+
+.upload-text{
+  color: #3A3A3A;
+  font-size: 40px;
+}
+
+.upload-subtext{
+  color: #949494;
+  font-size: 30px;
+}
+
+@keyframes swing {
+  0%, 100% { transform: rotate(-30deg); }
+  20% {transform:scale(.95);}
+  50% { transform: rotate(30deg); }
+  80% {transform:scale(.95);}
+}
+
+.rocket{
+  width: 150px;
+  animation: swing 2s infinite ease-in-out;
+}
+
+.bubble {
+  background: #7E7E7E;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height:30px;
+  width:30px;    
+  transition-property: -moz-transform;
+  transition-duration: 1s;
+  animation-name: grow;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  border-radius: 50px;
+  animation-delay: 0.5s;
+}
+
+.bubble2 {
+  background: #7E7E7E;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height:30px;
+  width:30px;    
+  transition-property: -moz-transform;
+  transition-duration: 1s;
+  animation-name: grow;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  border-radius: 50px;
+  margin-left: 20px;
+  animation-delay: 1s;
+}
+
+.bubble3 {
+  background: #7E7E7E;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height:30px;
+  width:30px;    
+  transition-property: -moz-transform;
+  transition-duration: 1s;
+  animation-name: grow;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  border-radius: 50px;
+  margin-left: 20px;
+  animation-delay: 1.5s;
+}
+
+@keyframes grow {
+ 0%, 100% {
+   transform: scale(0);
+ }
+ 50% {
+   transform: scale(1);
+ }
+}
+
+.bubble-container{
+display: flex;
+position: absolute;
+margin-left: 270px;
+margin-top: -150px;
+}
+
+.speech-bubble{
+  margin-left: 70%;
+  margin-top: -250px;
+  margin-bottom: 20px;
+}
+
+@keyframes grow2 {
+  0%{
+    transform: scale(0);
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  90% {
+    transform: scale(1.4);
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    transform: scale(1);
   }
+ }
+
+.check{
+  position: absolute;
+  margin-left: -8%;
+  margin-top: 70px;
+  width: 100px;
+  animation: grow2 0.8s ease-in;
 }
