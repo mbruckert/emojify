@@ -12,7 +12,7 @@ function Processing(props) {
   }, []);
 
   return (
-    <div>
+    <div style={{ paddingTop: "50px", paddingBottom: "50px" }}>
       <img src={Rocket} className="rocket" alt="rocket" />
       <h1 className="upload-text">Processing...</h1>
       <h4 className="upload-subtext">

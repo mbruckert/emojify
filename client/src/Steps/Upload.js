@@ -11,7 +11,10 @@ function Upload(props) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div {...getRootProps()}>
+    <div
+      {...getRootProps()}
+      style={{ paddingTop: "50px", paddingBottom: "50px" }}
+    >
       <input {...getInputProps()} />
       {isDragActive ? (
         <div>
