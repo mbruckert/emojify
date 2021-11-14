@@ -11,6 +11,7 @@ function App() {
   const [step, setStep] = useState(0);
   const [uploaded, setUploaded] = useState(false);
   const [uploadedImage, setUploadedImage] = useState("");
+  const [processedImage, setProcessedImage] = useState("");
 
   function changeStep(step) {
     setStep(step);
@@ -24,9 +25,19 @@ function App() {
     setUploadedImage(image);
   }
 
+  function changeProcessedImage(image) {
+    setProcessedImage(image);
+  }
+
   return (
     <div className="App">
-      <img src={Logo} className="logo" alt="logo" />
+      <img
+        src={Logo}
+        className="logo"
+        alt="logo"
+        style={{ cursor: "pointer" }}
+        onClick={() => window.location.reload()}
+      />
       {step === 0 && (
         <div className="speech-bubble">
           <img src={Thought} className="thought" alt="thought" />
@@ -47,9 +58,20 @@ function App() {
             changeUploadedImage={changeUploadedImage}
           />
         )}
-        {step == 1 && <Processing changeStep={changeStep} />}
+        {step == 1 && (
+          <Processing
+            changeStep={changeStep}
+            changeUploadedImage={changeUploadedImage}
+            changeProcessedImage={changeProcessedImage}
+            uploadedImage={uploadedImage}
+          />
+        )}
         {step == 2 && (
-          <Results changeStep={changeStep} uploadedImage={uploadedImage} />
+          <Results
+            changeStep={changeStep}
+            uploadedImage={uploadedImage}
+            processedImage={processedImage}
+          />
         )}
       </div>
     </div>
