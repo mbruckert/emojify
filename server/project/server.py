@@ -214,6 +214,44 @@ def img_proc():
     #     y=random.randrange(0,image_arr.shape[1])
     #     image=find_color([np.nanmean(masked[j:j+filter_size,i:i+filter_size,0]),np.nanmean(masked[j:j+filter_size,i:i+filter_size,1]),np.nanmean(masked[j:j+filter_size,i:i+filter_size,2])])[0].name
     #     emoji_arr=np.array(Image.open(os.path.join(__location__, 'emojis/',image)))
+
+    #     #when we truncate we round down, so we offset the right-left field by 1 to the right
+    #     left=(j+(filter_size//2))-79
+    #     if left<0:
+    #         emoji_arr=emoji_arr[int(abs(left)):,:,:]
+    #         left=0
+
+    #     right=(j+(filter_size//2))+81
+    #     if right>image_arr.shape[0]:
+    #         emoji_arr=emoji_arr[:int(image_arr.shape[0]-right),:,:]
+    #         right=image_arr.shape[0]
+
+    #     top=(i+(filter_size//2))-79
+    #     if top<0:
+    #         emoji_arr=emoji_arr[:,int(abs(top)):,:]
+    #         top=0
+
+    #     bottom=(i+(filter_size//2))+81
+    #     if bottom>image_arr.shape[1]:
+    #         emoji_arr=emoji_arr[:,:int(image_arr.shape[1]-bottom),:]
+    #         bottom=image_arr.shape[1]
+
+    #     #open emoji as image
+    #     img=Image.fromarray(emoji_arr)
+
+    #     #make whitespace transparent
+    #     img = img.convert("RGBA")
+    #     datas = img.getdata()
+    #     newData = []
+    #     for item in datas:
+    #         if item[0] == 255 and item[1] == 255 and item[2] == 255:
+    #             newData.append((255, 255, 255, 0))
+    #         else:
+    #             newData.append(item)
+    #     img.putdata(item)
+
+    #     #paste images
+    #     canvas_img.paste(img,(top,left),mask=img)
         
 
 
