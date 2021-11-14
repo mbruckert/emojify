@@ -113,6 +113,24 @@ margin-left: 180px;
 margin-top: -130px;
 }
 
+@media screen and (max-width: 1200px) {
+  .bubble-container{
+    display: flex;
+    position: absolute;
+    margin-left: 110px;
+    margin-top: -130px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+  .bubble-container{
+    display: flex;
+    position: absolute;
+    margin-left: 90px;
+    margin-top: -130px;
+    }
+}
+
 .speech-bubble{
   margin-left: 70%;
   margin-top: -200px;
