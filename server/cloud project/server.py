@@ -193,8 +193,8 @@ def find_color(arr):
 def img_proc():
     global filter_size, step_size, valid_sizes
     b64string=jsonify.loads(request.data).image
-    #image_arr=np.array(Image.open(io.BytesIO(base64.b64decode(b64string))))
-    image_arr=np.array(Image.open("C:\\Users\\owenb\\OneDrive\\Pictures\\Saved Pictures\\big_ass_image.png"))
+    image_arr=np.array(Image.open(io.BytesIO(base64.b64decode(b64string))))
+    #image_arr=np.array(Image.open("C:\\Users\\owenb\\OneDrive\\Pictures\\Saved Pictures\\big_ass_image.png"))
     smallest=min(image_arr.shape[0:1])
 
     #resize image to a processible size
@@ -207,6 +207,15 @@ def img_proc():
     o=image_arr.copy()
     canvas=np.full_like(image_arr,0)
     canvas_img=Image.new('RGBA',Image.fromarray(canvas).size,(0,0,0,0))
+
+    # masked=np.where(image_arr == 255, np.nan, image_arr)
+    # for i in range(math.pow(max(image_arr.shape),2)):
+    #     x=random.randrange(0,image_arr.shape[0])
+    #     y=random.randrange(0,image_arr.shape[1])
+    #     image=find_color([np.nanmean(masked[j:j+filter_size,i:i+filter_size,0]),np.nanmean(masked[j:j+filter_size,i:i+filter_size,1]),np.nanmean(masked[j:j+filter_size,i:i+filter_size,2])])[0].name
+    #     emoji_arr=np.array(Image.open(os.path.join(__location__, 'emojis/',image)))
+        
+
 
     #convert white to nan to ignore it
     masked=np.where(image_arr == 255, np.nan, image_arr)
@@ -254,4 +263,4 @@ def img_proc():
             canvas_img.paste(img,(top,left),mask=img)
     canvas_img.show()
 
-img_proc(base64.encode("12q1231231"))
+img_proc()
