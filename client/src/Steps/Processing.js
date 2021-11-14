@@ -6,19 +6,13 @@ import { useDropzone } from "react-dropzone";
 
 function Processing(props) {
   useEffect(() => {
-    // while(props.){
-
-    // }
-
+    setTimeout(() => {
+      props.changeStep(2);
+    }, 8000);
     fetch(
       "https://us-central1-emojify-app-hackathon.cloudfunctions.net/img_proc",
       {
         method: "POST",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods":
-            "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-        },
         body: JSON.stringify({
           image: props.uploadedImage,
         }),
