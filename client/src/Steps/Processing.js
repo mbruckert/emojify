@@ -6,19 +6,31 @@ import { useDropzone } from "react-dropzone";
 
 function Processing(props) {
   useEffect(() => {
-    setTimeout(() => {
-      props.changeStep(2);
-    }, 5000);
+    // while(props.){
 
-    // fetch("https://url.gcp.io/function", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     image: props.uploadedImage,
-    //   }),
-    // }).then((res) => {
-    //   console.log(res);
-    //   props.changeProcessedImage(res.image);
-    // });
+    // }
+
+    fetch(
+      "https://us-central1-emojify-app-hackathon.cloudfunctions.net/img_proc",
+      {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods":
+            "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+        },
+        body: JSON.stringify({
+          image: props.uploadedImage,
+        }),
+      }
+    )
+      .then((res) => {
+        console.log(res);
+        props.changeProcessedImage(res.image);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (

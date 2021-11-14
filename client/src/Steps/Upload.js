@@ -9,6 +9,7 @@ function Upload(props) {
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
+      console.log(reader.result);
       props.changeUploadedImage(reader.result);
     };
     reader.onerror = function (error) {
