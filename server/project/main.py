@@ -192,9 +192,9 @@ def find_color(arr):
 @app.route('/',methods=['POST'])
 def img_proc():
     global filter_size, step_size, valid_sizes
-    b64string=jsonify.loads(request.data).image
-    image_arr=np.array(Image.open(io.BytesIO(base64.b64decode(b64string))))
-    #image_arr=np.array(Image.open("C:\\Users\\owenb\\OneDrive\\Pictures\\Saved Pictures\\big_ass_image.png"))
+    #b64string=jsonify.loads(request.data).image
+    #image_arr=np.array(Image.open(io.BytesIO(base64.b64decode(b64string))))
+    image_arr=np.array(Image.open("C:\\Users\\owenb\\OneDrive\\Pictures\\Saved Pictures\\big_ass_image.png"))
     smallest=min(image_arr.shape[0:1])
 
     #resize image to a processible size
@@ -208,7 +208,7 @@ def img_proc():
     canvas=np.full_like(image_arr,0)
     canvas_img=Image.new('RGBA',Image.fromarray(canvas).size,(0,0,0,0))
 
-    for i in range(int(max(image_arr.shape))):
+    for i in range(int(3*max(image_arr.shape))):
         left=random.randrange(0,image_arr.shape[0])
         right=left+filter_size
         top=random.randrange(0,image_arr.shape[0])
