@@ -10,8 +10,11 @@ from PIL import Image
 import numpy as np
 from numpy.core.numeric import full_like
 from numpy.core.records import find_duplicate
+import flask
+from flask import Flask, request, jsonify
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+app=Flask(__name__)
 
 #octTree#######################################################################################
 MAX_OBJECTS_PER_CUBE = 20
@@ -127,7 +130,7 @@ class octTree:
                     branch = self.findBranch(root, ob.position)
                     if branch==last_branch:
                         same_branch_counter+=1
-                        if same_branch_counter>50:
+                        if same_branch_counter>500:
                             root.blacklist=True
                     else:
                         same_branch_counter=0
@@ -179,34 +182,19 @@ for i in keylist:
     myTree.insertNode(myTree.root,255.0000,myTree.root,obj)
 print("Tree loaded...")
 #GOOD CODE###########################################################################################################################################################
-filter_size=10
-step_size=20
+filter_size=150
+step_size=15
 valid_sizes=[int(i*step_size+filter_size) for i in range(100)]
 
 def find_color(arr):
     return myTree.findPosition(myTree.root,arr)
 
-def img_proc(b64string):
+@app.route('/',method=['POST'])
+def img_proc():
     global filter_size, step_size, valid_sizes
-
-    image_arr=np.array(Image.open(io.BytesIO(base64.b64decode(b64string))))
-    smallest=min(image_arr.shape[0:1])
-
-    #resize image to a processible size
-    chosen=0
-    for i in range(len(valid_sizes)):
-        if valid_sizes[i]>smallest:
-            chosen=valid_sizes[i-1]
-    image_arr=image_arr[:chosen,:chosen,:]
-    canvas=np.full_like(image_arr,0)
-
-
-
-def test_func():
-    global filter_size, step_size, valid_sizes
-    image_arr=np.array(Image.open("C:\\Users\\owenb\\OneDrive\\Pictures\\Saved Pictures\\glover_2.png"))
-    #if image_arr.shape[2]>3:
-    #    image_arr=image_arr[:,:,:3]
+    b64string=jsonify.loads(request.data).image
+    #image_arr=np.array(Image.open(io.BytesIO(base64.b64decode(b64string))))
+    image_arr=np.array(Image.open("C:\\Users\\owenb\\OneDrive\\Pictures\\Saved Pictures\\big_ass_image.png"))
     smallest=min(image_arr.shape[0:1])
 
     #resize image to a processible size
@@ -218,21 +206,15 @@ def test_func():
     image_arr=image_arr[:chosen,:chosen,:]
     o=image_arr.copy()
     canvas=np.full_like(image_arr,0)
+    canvas_img=Image.new('RGBA',Image.fromarray(canvas).size,(0,0,0,0))
 
     #convert white to nan to ignore it
     masked=np.where(image_arr == 255, np.nan, image_arr)
-
     for i in range(0,image_arr.shape[1]-filter_size+1,step_size):
         for j in range(0,image_arr.shape[0]-filter_size+1,step_size):
             image=find_color([np.nanmean(masked[j:j+filter_size,i:i+filter_size,0]),np.nanmean(masked[j:j+filter_size,i:i+filter_size,1]),np.nanmean(masked[j:j+filter_size,i:i+filter_size,2])])[0].name
-            emoji_arr=np.array(Image.open(os.path.join(__location__, 'emojis/',image)))[:,:,:-1]
+            emoji_arr=np.array(Image.open(os.path.join(__location__, 'emojis/',image)))
             
-            # #test
-            # emoji_arr[:,:,0].fill(np.average(image_arr[j:j+filter_size,i:i+filter_size,0]))
-            # emoji_arr[:,:,1].fill(np.average(image_arr[j:j+filter_size,i:i+filter_size,1]))
-            # emoji_arr[:,:,2].fill(np.average(image_arr[j:j+filter_size,i:i+filter_size,2]))
-            #test
-
             #when we truncate we round down, so we offset the right-left field by 1 to the right
             left=(j+(filter_size//2))-79
             if left<0:
@@ -254,8 +236,7 @@ def test_func():
                 emoji_arr=emoji_arr[:,:int(image_arr.shape[1]-bottom),:]
                 bottom=image_arr.shape[1]
 
-            #open as images
-            bg=Image.fromarray(canvas[left:right,top:bottom,:])
+            #open emoji as image
             img=Image.fromarray(emoji_arr)
 
             #make whitespace transparent
@@ -270,16 +251,7 @@ def test_func():
             img.putdata(item)
 
             #paste images
-            new_img=Image.new('RGBA',bg.size, (255,255,255,0))
-            new_img.paste(bg, (0,0))
-            new_img.paste(img,(0,0),mask=img)
+            canvas_img.paste(img,(top,left),mask=img)
+    canvas_img.show()
 
-            canvas[left:right,top:bottom,:]=np.array(new_img)
-            #canvas[max(0,((2*j+filter_width)/2)-128):min(canvas.shape[0],((2j+filter_width)/2)+128),max(0,((2*i+filter_height)/2)-128):min(canvas.shape[1],((2*i+filter_height)/2)+128),:]=np.array(Image.open('emojis\\'+find_color([np.average(image_arr[j:j+filter_width,i:i+filter_height,0]),np.average(image_arr[j:j+filter_width,i:i+filter_height,1]),np.average(image_arr[j:j+filter_width,i:i+filter_height,2])])))
-    im=Image.fromarray(canvas[:,:,:])
-    imo=Image.fromarray(o)
-    imo.show()
-    im.show()
-    im.save("test.png")
-
-test_func()
+img_proc(base64.encode("12q1231231"))
