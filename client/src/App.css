@@ -113,6 +113,42 @@ margin-left: 180px;
 margin-top: -130px;
 }
 
+@media screen and (max-width: 2000px) {
+  .bubble-container{
+    display: flex;
+    position: absolute;
+    margin-left: 240px;
+    margin-top: -130px;
+    }
+}
+
+@media screen and (max-width: 1800px) {
+  .bubble-container{
+    display: flex;
+    position: absolute;
+    margin-left: 200px;
+    margin-top: -130px;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+  .bubble-container{
+    display: flex;
+    position: absolute;
+    margin-left: 180px;
+    margin-top: -130px;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+  .bubble-container{
+    display: flex;
+    position: absolute;
+    margin-left: 160px;
+    margin-top: -130px;
+    }
+}
+
 @media screen and (max-width: 1200px) {
   .bubble-container{
     display: flex;
