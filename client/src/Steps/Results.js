@@ -19,7 +19,19 @@ function Results(props) {
   return (
     <div>
       <div className="results-container">
-        <div className="start-image"></div>
+        <div
+          className="start-image"
+          style={{
+            backgroundImage:
+              "url('" +
+              props.uploadedImage.replace(/(\r\n|\n|\r)/gm, "") +
+              "')",
+            backgroundSize: "contain",
+            backgroundClip: "content-box",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+          }}
+        />
         <img src={Arrow} className="arrow" alt="arrow" />
         <div className="result-image"></div>
       </div>

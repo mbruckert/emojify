@@ -10,6 +10,7 @@ import Check from "./Assets/check.png";
 function App() {
   const [step, setStep] = useState(0);
   const [uploaded, setUploaded] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState("");
 
   function changeStep(step) {
     setStep(step);
@@ -17,6 +18,10 @@ function App() {
 
   function changeUploaded() {
     setUploaded(!uploaded);
+  }
+
+  function changeUploadedImage(image) {
+    setUploadedImage(image);
   }
 
   return (
@@ -36,10 +41,16 @@ function App() {
       )}
       <div className="upload-box">
         {step == 0 && (
-          <Upload changeStep={changeStep} changeUploaded={changeUploaded} />
+          <Upload
+            changeStep={changeStep}
+            changeUploaded={changeUploaded}
+            changeUploadedImage={changeUploadedImage}
+          />
         )}
         {step == 1 && <Processing changeStep={changeStep} />}
-        {step == 2 && <Results changeStep={changeStep} />}
+        {step == 2 && (
+          <Results changeStep={changeStep} uploadedImage={uploadedImage} />
+        )}
       </div>
     </div>
   );
