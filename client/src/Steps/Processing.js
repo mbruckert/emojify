@@ -8,17 +8,23 @@ function Processing(props) {
   useEffect(() => {
     setTimeout(() => {
       props.changeStep(2);
-    }, 5000);
-
-    // fetch("https://url.gcp.io/function", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     image: props.uploadedImage,
-    //   }),
-    // }).then((res) => {
-    //   console.log(res);
-    //   props.changeProcessedImage(res.image);
-    // });
+    }, 8000);
+    fetch(
+      "https://us-central1-emojify-app-hackathon.cloudfunctions.net/img_proc",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          image: props.uploadedImage,
+        }),
+      }
+    )
+      .then((res) => {
+        console.log(res);
+        props.changeProcessedImage(res.image);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
