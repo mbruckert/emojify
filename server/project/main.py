@@ -21,7 +21,7 @@ app=Flask(__name__)
 CORS(app)
 
 #octTree#######################################################################################
-MAX_OBJECTS_PER_CUBE = 20
+MAX_OBJECTS_PER_CUBE = 10
 same_branch_counter=0
 last_branch=0
 tree=None
@@ -134,7 +134,7 @@ class octTree:
                     branch = self.findBranch(root, ob.position)
                     if branch==last_branch:
                         same_branch_counter+=1
-                        if same_branch_counter>900:
+                        if same_branch_counter>10000:
                             root.blacklist=True
                     else:
                         same_branch_counter=0
@@ -186,8 +186,8 @@ for i in keylist:
     myTree.insertNode(myTree.root,255.0000,myTree.root,obj)
 print("Tree loaded...")
 #GOOD CODE###########################################################################################################################################################
-filter_size=50
-step_size=15
+filter_size=10
+step_size=5
 valid_sizes=[int(i*step_size+filter_size) for i in range(2000)]
 
 def find_color(arr):
@@ -217,12 +217,17 @@ def img_proc():
 
     #convert white to nan to ignore it
     masked=np.where(image_arr == 255, np.nan, image_arr)
-    for i in range(0,image_arr.shape[1]-filter_size+1,step_size):
-        for j in range(0,image_arr.shape[0]-filter_size+1,step_size):
+    r1=list(range(0,image_arr.shape[1]-filter_size+1,step_size))
+    random.shuffle(r1)
+    r2=list(range(0,image_arr.shape[0]-filter_size+1,step_size))
+    random.shuffle(r2)
+    print()
+    for i in r1:
+        for j in r2:
             #image=find_color([np.nanmean(masked[j:j+filter_size,i:i+filter_size,0]),np.nanmean(masked[j:j+filter_size,i:i+filter_size,1]),np.nanmean(masked[j:j+filter_size,i:i+filter_size,2])])[0].name
             image=random.choice(find_color([np.average(image_arr[j:j+filter_size,i:i+filter_size,0]),np.average(image_arr[j:j+filter_size,i:i+filter_size,1]),np.average(image_arr[j:j+filter_size,i:i+filter_size,2])])).name
             emoji_arr=np.array(Image.open(os.path.join(__location__, 'emojis/',image)))
-            emoji_arr=emoji_arr[::2,::2,:]
+            emoji_arr=emoji_arr[::3,::3,:]
             
             #when we truncate we round down, so we offset the right-left field by 1 to the right
             left=(j+(filter_size//2))-79
