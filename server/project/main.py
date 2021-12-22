@@ -8,7 +8,7 @@ import random
 import math
 import json
 #packages
-from PIL import Image
+from PIL import Image, ImageOps
 import numpy as np
 from numpy.core.numeric import full_like
 from numpy.core.records import find_duplicate
